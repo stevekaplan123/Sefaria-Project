@@ -1361,7 +1361,7 @@ body.hebrew .enNote .anchorText {
 /* Bilingual display, bilingual comment defaults to English */
 body.english .commentaryBox .commentary:not(.heOnly),
 body.bilingual .commentaryBox .commentary:not(.heOnly) {
-    max-height: 48px;
+    max-height: 49px;
 }
 
 /* Hebrew display, Hebrew comment */
@@ -1373,7 +1373,7 @@ body.hebrew .commentaryBox .commentary:not(.enOnly) {
 /* English display, Hebrew comment */
 body.bilingual .commentaryBox .commentary.heOnly,
 body.english .commentaryBox .commentary.heOnly {
-    max-height: 45px;
+    max-height: 44px;
 }
 
 /* Hebrew display, English comment */
