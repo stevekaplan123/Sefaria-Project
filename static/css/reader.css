@@ -1128,7 +1128,10 @@ body.hebrew .anchorText {
 }
 
 body.hebrew .commentaryBox .text .he {
-	display: inline;
+    display: inline;
+}
+
+body.hebrew .commentaryBox .commentary:not(.enOnly) .text .he {
 	font-size: 20px;
 }
 
@@ -1343,7 +1346,6 @@ body.hebrew .enNote .anchorText {
 	font-family: serif;		
 	display: block;
 	font-size: 15px;
-	max-height: 48px;
 	padding: 2px 0px;
 	overflow: hidden;
 	cursor: pointer;
@@ -1354,6 +1356,31 @@ body.hebrew .enNote .anchorText {
     transition: all 0.15s ease;
 }
 
+/* English display, English comment */
+/* Bilingual display, English comment */
+/* Bilingual display, bilingual comment defaults to English */
+body.english .commentaryBox .commentary:not(.heOnly),
+body.bilingual .commentaryBox .commentary:not(.heOnly) {
+    max-height: 48px;
+}
+
+/* Hebrew display, Hebrew comment */
+body.hebrew .commentaryBox .commentary:not(.enOnly) {
+    max-height: 46px;
+}
+
+/* Billingual display, Hebrew comment */
+/* English display, Hebrew comment */
+body.bilingual .commentaryBox .commentary.heOnly,
+body.english .commentaryBox .commentary.heOnly {
+    max-height: 45px;
+}
+
+/* Hebrew display, English comment */
+body.hebrew  .commentaryBox .commentary.enOnly {
+	max-height: 54px;
+}
+
 .commentary.notransition {
 	-webkit-transition: none;
     -moz-transition: none;
@@ -1362,13 +1389,13 @@ body.hebrew .enNote .anchorText {
 }
 
 
-.commentaryBox .commentary.expanded {
+body .screen-container .screen .commentaryBox .commentary.expanded {
 	max-height: 9999px;
 	font-size: 19px;
 	line-height: 1.2;
 }
 
-body.hebrew .commentaryBox .expanded .text .he {
+body.hebrew .commentaryBox .commentary:not(.enOnly) .expanded .text .he {
 	font-size: 25px;
 }
 
