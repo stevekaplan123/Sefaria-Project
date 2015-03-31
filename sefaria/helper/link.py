@@ -1,6 +1,7 @@
 # -*- coding: utf-8 -*-
 from sefaria.model import *
 from sefaria.system.exceptions import DuplicateRecordError, InputError
+from sefaria.utils.talmud import section_to_daf
 import sefaria.tracker as tracker
 
 #TODO: should all the functions here be decoupled from the need to enter a userid?
@@ -11,8 +12,9 @@ def add_commentary_links(tref, user, **kwargs):
     Kohelet 3:2 <-> Sforno on Kohelet 3:2:1, Kohelet 3:2 <-> Sforno on Kohelet 3:2:2, etc.
     for each segment of text (comment) that is in 'Sforno on Kohelet 3:2'.
     """
-    text = TextFamily(Ref(tref), commentary=0, context=0, pad=False).contents()
-    tref = Ref(tref).normal()
+    oref = Ref(tref)
+    text = TextFamily(oref, commentary=0, context=0, pad=False).contents()
+    tref = oref.normal()
 
     book = tref[tref.find(" on ") + 4:]
 
@@ -67,7 +69,8 @@ def add_commentary_links(tref, user, **kwargs):
         sn = StateNode(tref)
         length = sn.ja('all').length()
         for i in range(length):
-            add_commentary_links("%s:%d" % (tref, i+1), user)
+            section = section_to_daf(i+1) if oref.is_talmud() else str(i+1)
+            add_commentary_links("%s:%s" % (tref, section), user)
 
 
 def rebuild_commentary_links(tref, user, **kwargs):
@@ -84,10 +87,7 @@ def rebuild_commentary_links(tref, user, **kwargs):
             rebuild_commentary_links(c, user, **kwargs)
         return
 
-    links = LinkSet({
-                        "refs": {"$regex": oref.regex()}, 
-                        "generated_by": "add_commentary_links",
-                    })
+    links = LinkSet(oref)
     for link in links:
         try:
             oref1, oref2 = Ref(link.refs[0]), Ref(link.refs[1])
@@ -95,6 +95,7 @@ def rebuild_commentary_links(tref, user, **kwargs):
             continue
         t1, t2 = TextFamily(oref1, commentary=0, context=0), TextFamily(oref2, commentary=0, context=0)
         if not (t1.text + t1.he) or not (t2.text + t2.he):
+            # Delete any link that doesn't have some textual content on one side or the other
             link.delete()
     add_commentary_links(tref, user, **kwargs)
 
