@@ -1378,7 +1378,7 @@ body.english .commentaryBox .commentary.heOnly {
 
 /* Hebrew display, English comment */
 body.hebrew  .commentaryBox .commentary.enOnly {
-	max-height: 54px;
+	max-height: 56px;
 }
 
 .commentary.notransition {
