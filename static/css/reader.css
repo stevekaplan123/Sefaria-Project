@@ -1033,7 +1033,7 @@ body.noCommentary .aboutBarBox {
 	overflow: hidden;
 	text-overflow: ellipsis;
 	font-family: serif;
-	text-align: left;
+	text-align: justify;
 	line-height: 1.1;
 	background: inherit;
 	z-index: 12;
@@ -1112,7 +1112,7 @@ body.noCommentary .aboutBarBox {
 
 body.hebrew .commentaryBox .commentary{
 	direction: rtl;
-	text-align: right;
+	/* text-align: right; */
 }		
 
 body.hebrew .commentaryBox .commentary.sheet {
@@ -1361,24 +1361,35 @@ body.hebrew .enNote .anchorText {
 /* Bilingual display, bilingual comment defaults to English */
 body.english .commentaryBox .commentary:not(.heOnly),
 body.bilingual .commentaryBox .commentary:not(.heOnly) {
-    max-height: 47px;
+    /* max-height: 47px; */
 }
 
 /* Hebrew display, Hebrew comment */
 body.hebrew .commentaryBox .commentary:not(.enOnly) {
-    max-height: 44px;
+    /* max-height: 44px; */
 }
 
 /* Billingual display, Hebrew comment */
 /* English display, Hebrew comment */
 body.bilingual .commentaryBox .commentary.heOnly,
 body.english .commentaryBox .commentary.heOnly {
-    max-height: 43px;
+    /* max-height: 43px; */
+}
+
+body.bilingual .commentaryBox .commentary.heOnly .text .en,
+body.english .commentaryBox .commentary.heOnly .text .en {
+    direction: rtl;
+    text-align-last: right;
 }
 
 /* Hebrew display, English comment */
 body.hebrew  .commentaryBox .commentary.enOnly {
-	max-height: 56px;
+	/* max-height: 56px; */
+}
+
+body.hebrew  .commentaryBox .commentary.enOnly .text .he{
+    direction: ltr;
+    text-align-last: left;
 }
 
 .commentary.notransition {
