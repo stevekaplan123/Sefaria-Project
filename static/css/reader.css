@@ -1384,7 +1384,7 @@ body.english .commentaryBox .commentary.heOnly .text .en {
 
 /* Hebrew display, English comment */
 body.hebrew  .commentaryBox .commentary.enOnly {
-	/* max-height: 56px; */
+	max-height: 55px;
 }
 
 body.hebrew  .commentaryBox .commentary.enOnly .text .he{
@@ -1409,10 +1409,6 @@ body .screen-container .screen .commentaryBox .commentary.expanded {
 body.hebrew .commentaryBox .commentary:not(.enOnly) .expanded .text .he {
 	font-size: 25px;
 }
-
-body.hebrew  .commentaryBox .commentary.enOnly {
-	max-height: 55px;
- }
 
 .commentaryBox .commentary.expanded .commentator {
 	font-size: 20px;
