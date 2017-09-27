@@ -124,6 +124,10 @@ class Util {
      }
      Util._cookies[key] = value;
     }
+    static openInNewTab(url) {
+      var win = window.open(url, '_blank');
+      win.focus();
+    }
     static setupPrototypes() {
 
         String.prototype.toProperCase = function() {
@@ -330,22 +334,6 @@ class Util {
         };
     }
     static setupJQuery() {
-        if (!$.hasOwnProperty("fn")) { return; }
-        $.fn.serializeObject = function() {
-            var o = {};
-            var a = this.serializeArray();
-            $.each(a, function() {
-                if (o[this.name] !== undefined) {
-                    if (!o[this.name].push) {
-                        o[this.name] = [o[this.name]];
-                    }
-                    o[this.name].push(this.value || '');
-                } else {
-                    o[this.name] = this.value || '';
-                }
-            });
-            return o;
-        };
     /*!
          * jQuery Cookie Plugin v1.3
          * https://github.com/carhartl/jquery-cookie

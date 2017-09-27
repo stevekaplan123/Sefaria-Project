@@ -310,6 +310,7 @@ class ReaderApp extends Component {
           (next.mode === "TextAndConnections" && prev.highlightedRefs.slice(-1)[0] !== next.highlightedRefs.slice(-1)[0]) ||
           ((next.mode === "Connections" || next.mode === "TextAndConnections") && prev.filter && !prev.filter.compare(next.filter)) ||
           (next.mode === "Connections" && !prev.refs.compare(next.refs)) ||
+          (next.currentlyVisibleRef === prev.currentlyVisibleRef) ||
           (next.connectionsMode !== prev.connectionsMoade) ||
           (prev.navigationSheetTag !== next.navigationSheetTag) ||
           (prev.version !== next.version) ||
@@ -469,7 +470,7 @@ class ReaderApp extends Component {
             break;
         }
       } else if (state.mode === "Text") {
-        hist.title    = state.highlightedRefs.length ? Sefaria.normRefList(state.highlightedRefs) : Sefaria.normRefList(state.refs);
+        hist.title    = state.highlightedRefs.length ? Sefaria.normRefList(state.highlightedRefs) : state.currentlyVisibleRef;
         hist.url      = Sefaria.normRef(hist.title);
         hist.version  = state.version;
         hist.versionLanguage = state.versionLanguage;
@@ -620,6 +621,7 @@ class ReaderApp extends Component {
       version:                 state.version                 || null,
       versionLanguage:         state.versionLanguage         || null,
       highlightedRefs:         state.highlightedRefs         || [],
+      currentlyVisibleRef:     state.refs && state.refs.length ? state.refs[0] : null,
       recentFilters:           state.recentFilters           || state.filter || [],
       menuOpen:                state.menuOpen                || null, // "navigation", "text toc", "display", "search", "sheets", "home", "book toc"
       navigationCategories:    state.navigationCategories    || [],
@@ -1301,6 +1303,7 @@ class ReaderApp extends Component {
                       closePanel={closePanel}
                       panelsOpen={panelStates.length}
                       allOpenRefs={allOpenRefs}
+                      hasSidebar={panelStates.length > i+1 && panelStates[i+1].mode == "Connections"}
                       masterPanelLanguage={panel.mode === "Connections" ? panelStates[i-1].settings.language : panel.settings.language}
                       layoutWidth={width}
                       analyticsInitialized={this.state.initialAnalyticsTracked}
@@ -1319,7 +1322,9 @@ class ReaderApp extends Component {
       (<InterruptingMessage
           messageName={Sefaria.interruptingMessage.name}
           messageHTML={Sefaria.interruptingMessage.html}
+          repetition={Sefaria.interruptingMessage.repetition}
           onClose={this.rerender} />) : null;
+
     var classDict = {readerApp: 1, multiPanel: this.props.multiPanel, singlePanel: !this.props.multiPanel};
     var interfaceLangClass = `interface-${this.props.interfaceLang}`;
     classDict[interfaceLangClass] = true

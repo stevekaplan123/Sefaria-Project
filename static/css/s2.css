@@ -51,6 +51,9 @@ body:not(.user-is-tabbing) *:focus {
   height: 100%;
   top: 0;
 }
+.readerApp.interface-hebrew{
+  direction: rtl;
+}
 .noselect {
   -webkit-touch-callout: none; /* iOS Safari */
     -webkit-user-select: none; /* Safari/Opera */
@@ -273,34 +276,55 @@ input.noselect {
   position: fixed;
   z-index: 1001;
 }
+#interruptingMessageBox {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: fixed;
+  width: 100%;
+  height: 100%;
+  left: 0;
+  right: 0;
+  z-index: 1001;
+  opacity: 1;
+  transition: opacity .3s ease-in;
+}
+#interruptingMessageBox.hidden {
+  opacity: 0;
+}
+#interruptingMessageOverlay {
+  width: 100%;
+  height: 100%;
+  background-color: white;
+  opacity: 0.7;
+  position: fixed;
+}
 #interruptingMessage {
-  width: 600px;
   max-width: 90%;
-  padding: 40px;
   box-sizing: border-box;
   position: fixed;
-  top: 15%;
-  left: 50%;
-  margin-left: -300px;
+  padding: 18px 15px;
   z-index: 1001;
-  border: 1px solid #ccc;
-  background: white;
+  border: 1px solid #E6E6E6;
+  background-color: #F9F9F7;
   text-align: center;
   color: #666;
 }
-@media (max-width: 540px) {
-  #interruptingMessage {
-    margin: 0 auto;
-    left: 5%;
-  }
+#interruptingMessageContentBox {
+  position: relative;
+  border: 1px solid #CCC;
+  background-color: white;
 }
 #interruptingMessageClose {
   position: absolute;
-  top: 12px;
-  right: 20px;
-  color: #666;
-  font-size: 24px;
+  top: 2px;
+  right: 12px;
+  color: #AAA;
+  font-size: 32px;
   cursor: pointer;
+}
+#interruptingMessageContent {
+  padding: 32px 32px 16px 32px;
 }
 #interruptingMessage h1 {
   font-style: italic;
@@ -310,6 +334,9 @@ input.noselect {
   text-align: center;
   margin: 0 0 30px;
   color: #333;
+}
+.interface-hebrew #interruptingMessage h1{
+  font-style: normal;
 }
 .testMessage {
   position: fixed;
@@ -566,24 +593,6 @@ input.noselect {
 .bilingual .loadingMessage .he {
   display: none;
 }
-.headroom {
-  transition: transform 200ms linear;
-  -webkit-transition: 200ms linear;
-  transition-property: transform;
-}
-.headroom--pinned {
-  transform: translateY(0%);
-  -webkit-transform: translateY(0%);
-}
-
-.headroom--unpinned {
-  transform: translateY(-100%);
-  -webkit-transform: translateY(-100%);
-}
-.headroomOff.headroom--unpinned {
-  transform: translateY(0%);
-  -webkit-transform: translateY(0%);
-}
 .readerPanel.light {
   background-color: white;
 }
@@ -640,17 +649,25 @@ input.noselect {
   margin: 0 auto;
 }
 .readerNavTop {
-  position: absolute;
+  /*position: absolute;*/
   width: 100%;
   background-color: #F9F9F7;
   border-bottom: 1px solid #E2E2E1;
   box-sizing: border-box;
   height: 58px;
-  direction: ltr;
+  /*direction: ltr;*/
   z-index: 1;
-  padding: 0px 30px;
+  padding: 5px 30px 0 30px;
   vertical-align: middle;
   line-height: 58px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+.readerNavTop .readerNavTopStart {
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
 }
 .singlePanel .readerNavTop {
   padding: 0 10px;
@@ -661,10 +678,9 @@ input.noselect {
   padding: 0;
 }
 .readerPanel .readerNavTop h2 {
-  margin-bottom: 0px;
+  margin: 0px;
   font-weight: 400;
   color: black;
-  line-height: 38px;
 }
 .readerNavTop.search {
 }
@@ -677,25 +693,30 @@ input.noselect {
   font-size: 18px;
   font-family: "adobe-garamond-pro", Georgia;
   height: 48px;
-  margin-top: 9px;
+  /*margin-top: 9px;*/
 }
 .readerNavMenu .readerSearch:focus {
   outline: 0;
+}
+.readerNavTop .readerNavMenuSearchButton {
+  margin: 0 10px;
 }
 .readerNavTop .readerNavMenuSearchButton,
 .readerNavTop .readerNavMenuCloseButton,
 .readerNavTop .readerNavMenuMenuButton,
 .readerNavTop .readerOptions {
   text-align: left;
-  width: 40px;
+  /*width: 40px;
   height: 48px;
   margin-top: 5px;
+  vertical-align: middle;*/
   box-sizing: border-box;
   color: #BFBFBF;
   float: left;
   font-size: 20px;
-  vertical-align: middle;
   cursor: pointer;
+  display: flex;
+  align-items: center;
 }
 .readerNavMenuCloseButton:hover {
   text-decoration: none;
@@ -715,6 +736,8 @@ input.noselect {
 .readerNavTop .readerOptions {
   float: right;
   text-align: right;
+  display: flex;
+  align-items: center;
 }
 .sefariaLogo img {
   width: 110px;
@@ -973,7 +996,8 @@ a.readerNavCategory {
 .readerNavCategoryMenu .content {
   padding: 100px 10px 10px;
 }
-.readerNavCategoryMenu .content .category {
+.readerNavCategoryMenu .content .category,
+.readerNavCategoryMenu .content .gridBox {
   margin-bottom: 30px;
 }
 .readerNavCategoryMenu .categoryAttribution {
@@ -1032,6 +1056,9 @@ a.readerNavCategory {
   width: 100%;
   height: 100%;
 }
+.readerNavMenu .readerNavCategoryMenu .refLink.incomplete {
+  opacity: 0.7;
+}
 .categoryColorLine {
   position: absolute;
   top: 0;
@@ -1039,6 +1066,24 @@ a.readerNavCategory {
   width: 100%;
   height: 6px;
   z-index: 101;
+}
+.readerApp.interface-hebrew .readerNavMenu.noLangToggleInHebrew .en {
+  display: none;
+}
+.readerApp.interface-hebrew .readerNavMenu.noLangToggleInHebrew .he {
+  display: inline;
+}
+.interface-hebrew .readerPanel.english .noLangToggleInHebrew .readerNavSection,
+.interface-hebrew .readerPanel.english .readerNavMenu.noLangToggleInHebrew .gridBox {
+  direction: rtl;
+}
+.interface-hebrew .english .noLangToggleInHebrew .gridBox td:first-child {
+  border-right: 0;
+  border-left: 3px solid transparent;
+}
+.interface-hebrew .english .noLangToggleInHebrew .gridBox td:last-child {
+  border-left: 0;
+  border-right: 3px solid transparent;
 }
 .bilingual .readerTextTableOfContents .he {
   display: none;
@@ -1218,8 +1263,7 @@ a.readerNavCategory {
   padding: 30px 10px 10px;
   box-sizing: border-box;
   text-align: center;
-  top: 58px;
-  height: calc(100% - 58px);
+  height: 100%;
 }
 .readerTextTableOfContents .content .sectionLink {
   display: inline-block;
@@ -1670,7 +1714,7 @@ a.readerNavCategory {
 
 .searchFilterBoxes .searchFilterExactBox {
   border-top: 1px solid #ccc;
-  padding: 5px 5px 5px 0;
+  padding: 5px 0px 5px 0;
 }
 
 .searchFilterExactBox.hidden {
@@ -1935,8 +1979,8 @@ a.readerNavCategory {
   direction: ltr;
 }
 .readerControls {
-  position: absolute;
-  direction: ltr;
+  position: relative;
+  /* direction: ltr;*/
   top: 0;
   left: 0;
   width: 100%;
@@ -1984,8 +2028,10 @@ a.readerNavCategory {
 .readerControls .readerControlsInner {
   position: relative;
   width: 700px;
+  margin: 0 auto;
   padding: 0 30px;
-  display: inline-block;
+  display: flex;
+  justify-content: space-between;
   max-width:  100%;
   box-sizing: border-box;
 }
@@ -2011,7 +2057,7 @@ a.readerNavCategory {
   font-family: "proxima-nova", "Helvetica Neue", "Helvetica", sans-serif;
   text-transform: uppercase;
   color: #999;
-  direction: ltr !important;
+  width: 100%;
 }
 .readerControls .readerTextToc.attributed .readerTextTocBox {
   line-height: 1.2;
@@ -2025,19 +2071,23 @@ a.readerNavCategory {
 .readerControls .readerTextToc .categoryAttribution .he {
   font-style: normal;
 }
-.leftButtons,
-.rightButtons {
-  /*position: absolute;
-  top: 0;*/
-}
-.leftButtons {
+
+.interface-english .leftButtons,
+.interface-hebrew .rightButtons {
   text-align: left;
-  float: left;
 }
-.rightButtons {
+.interface-english .rightButtons,
+.interface-hebrew .leftButtons {
   text-align: right;
-  float: right;
 }
+/* icons need a little nudge in flipped hebrew mode */
+.interface-hebrew .rightButtons {
+  margin-left: -3px;
+}
+.interface-hebrew .leftButtons {
+  margin-right: 2px;
+}
+
 .leftButtons .readerNavMenuSearchButton,
 .leftButtons .readerNavMenuMenuButton,
 .leftButtons .readerNavMenuCloseButton,
@@ -2080,7 +2130,7 @@ a.readerNavCategory {
   white-space: nowrap;
   text-overflow: ellipsis;
   overflow: hidden;
-  max-width: 70%;
+  /*max-width: 70%;*/
   vertical-align: middle;
   color: #333;
 }
@@ -2357,10 +2407,6 @@ a.readerNavCategory {
 .basetext .segment:focus .linkCount {
   background-color: transparent;
 }
-.textColumn.connectionsOpen .basetext .segment:active,
-.textColumn.connectionsOpen .basetext .segment:focus {
-  background-color: inherit;
-}
 .dark .basetext .segment:active,
 .dark .basetext .segment:focus {
   background-color: #444;
@@ -2578,12 +2624,16 @@ a.readerNavCategory {
 .connectionsPanelHeader{
   display: flex;
   justify-content: space-between;
+  align-items: center;
 }
 .singlePanel .connectionsPanelHeader {
   justify-content: flex-start;
 }
 .interface-hebrew .connectionsPanelHeader{
   direction: rtl;
+}
+.interface-english .connectionsPanelHeader{
+  direction: ltr;
 }
 .connectionsPanelHeader .rightButtons {
   margin-top: -4px;
@@ -2598,9 +2648,11 @@ a.readerNavCategory {
 .readerNavMenu.noHeader.compare .readerNavTop .readerNavMenuCloseButton.circledX{
   height: 32px;
   width: 30px;
-  text-align: center;
-  margin: auto 15px;
-  line-height: 58px;
+  display: flex;
+  align-items: center;
+  margin: 0 15px;
+  /*text-align: center;
+  line-height: 58px;*/
 }
 .connectionsPanelHeader .languageToggle {
   margin: 0 15px;

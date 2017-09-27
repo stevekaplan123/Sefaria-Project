@@ -333,7 +333,7 @@ body:not(.user-is-tabbing) #sheet .cke_editable:focus {
 	content: "\f0da";
 }
 
-.optionGroup:hover .subMenu {
+.optionGroup:hover .subMenu, .optionGroup.open .subMenu {
 	display: block;
 }
 
@@ -728,8 +728,6 @@ body:not(.user-is-tabbing) #sheet .cke_editable:focus {
 	position: relative;
 }
 
-
-
 .text .en,
 .text .he {
 	min-height: 20px;
@@ -737,6 +735,7 @@ body:not(.user-is-tabbing) #sheet .cke_editable:focus {
 
 #sheet .en {
 	direction: ltr;
+	text-align: left;
 }
 #sheet .he {
 	direction: rtl;
@@ -858,7 +857,6 @@ body:not(.user-is-tabbing) #sheet .cke_editable:focus {
 	padding-right: 160px !important;
 }
 
-
 .comment, .oldComment {
 	font-size: 17px;
 	min-height: 30px;
@@ -938,7 +936,7 @@ body:not(.user-is-tabbing) #sheet .cke_editable:focus {
 
 #addParashaToSheetModal li:hover span{
 	text-decoration: underline;
- }
+}
 
 #addParashaToSheetModal ol {
 	display: flex;
@@ -1608,11 +1606,11 @@ line-height: normal;
 	/*padding-left: 0;*/
 }
 
-.sheetsMenuBarItem:hover {
+.sheetsMenuBarItem:hover, .sheetsMenuBarItem.open {
 	position: relative;
 }
 
-.sheetsMenuBarItem:hover:after {
+.sheetsMenuBarItem:hover:after, .sheetsMenuBarItem.open:after {
   content: ' ';
   position: absolute;
   top: 0;
@@ -1622,14 +1620,15 @@ line-height: normal;
   z-index: 6;
 }
 
-#fileMenu:hover .optionsMenu, #formatMenu:hover .optionsMenu, #insertMenu:hover .optionsMenu, #highlightMenu:hover .optionsMenu  {
+#fileMenu:hover .optionsMenu, #formatMenu:hover .optionsMenu, #insertMenu:hover .optionsMenu, #highlightMenu:hover .optionsMenu,
+.sheetsMenuBarItem.open .optionsMenu {
 	display: block;
 	top:45px;
 	/*left:20px;*/
 	background-color: #F9F9F7;
 }
 
-#insertMenu:hover .optionsMenu {
+#insertMenu:hover .optionsMenu, .menuHeaderOpen .optionsMenu {
 	width:240px;
 }
 

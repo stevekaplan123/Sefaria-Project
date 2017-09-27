@@ -12,6 +12,14 @@ MAINTENANCE_MESSAGE = ""
 GLOBAL_WARNING = False
 GLOBAL_WARNING_MESSAGE = ""
 
+GLOBAL_INTERRUPTING_MESSAGE = None
+"""
+GLOBAL_INTERRUPTING_MESSAGE = {
+    "name":       "messageName",
+    "repetition": 1,
+    "condition":  {"returning_only": True} 
+}
+"""
 
 ADMINS = (
      ('Your Name', 'you@example.com'),
@@ -93,6 +101,10 @@ DOMAIN_LANGUAGES = {
     "hebrew.example.org": "hebrew",
     "english.example.org": "english",
 }
+
+# Map domains which should be allowed for language directs, same shape as DOMAIN_LANGUAGES.
+# Set if you need to redirects to behave differently.
+REDIRECTABLE_DOMAIN_LANGUAGES = DOMAIN_LANGUAGES
 
 GOOGLE_ANALYTICS_CODE = 'your google analytics code'
 MIXPANEL_CODE = 'you mixpanel code here'
