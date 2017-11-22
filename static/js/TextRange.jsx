@@ -249,7 +249,7 @@ class TextRange extends Component {
           <span className="he">{ parashahNames.he }</span>
         </div>;
       }
-      return (<div key={i + segment.ref}>
+      return (<span key={i + segment.ref}>
                 { parashahHeader }
                 <TextSegment
                     sref={segment.ref}
@@ -264,7 +264,7 @@ class TextRange extends Component {
                     onSegmentClick={this.props.onSegmentClick}
                     onCitationClick={this.props.onCitationClick}
                     onFootnoteClick={this.onFootnoteClick} />
-              </div>);
+              </span>);
     }.bind(this));
     textSegments = textSegments.length ? textSegments : null;
 
@@ -303,17 +303,20 @@ class TextRange extends Component {
     this.props.inlineReference['data-commentator'] === Sefaria.index(Sefaria.parseRef(this.props.sref).index).collectiveTitle);
     if (sidebarNumberDisplay) {
       if (this.props.inlineReference['data-label']) {
-        var displayValue = this.props.inlineReference['data-label'];
+        var enDisplayValue = this.props.inlineReference['data-label'];
+        var heDisplayValue = this.props.inlineReference['data-label'];
       }
       else {
-        var displayValue = Sefaria.hebrew.encodeHebrewNumeral(this.props.inlineReference['data-order']);
+        var enDisplayValue = this.props.inlineReference['data-order'];
+        var heDisplayValue = Sefaria.hebrew.encodeHebrewNumeral(enDisplayValue);
       }
-      if (displayValue === undefined) {
-        displayValue = this.props.inlineReference['data-order'];
+      if (heDisplayValue === undefined) {
+        heDisplayValue = enDisplayValue;
       }
       var sidebarNum = <div className="numberLabel sans itag">
         <span className="numberLabelInner">
-          <span className="he heOnly">{displayValue}</span>
+          <span className="en">{enDisplayValue}</span>
+          <span className="he">{heDisplayValue}</span>
         </span>
       </div>;
     } else if (showNumberLabel && this.props.numberLabel) {
