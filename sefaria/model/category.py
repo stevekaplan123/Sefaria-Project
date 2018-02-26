@@ -213,6 +213,7 @@ class TocTree(object):
                 # First sort by global order list below
                 return ORDER.index(title)
 
+
             except ValueError:
                 # Sort top level Commentary categories just below theit base category
                 if isinstance(node, TocCategory):
@@ -226,7 +227,9 @@ class TocTree(object):
 
         for cat in self.all_category_nodes():  # iterate all categories
             cat.children.sort(key=_explicit_order_and_title)
-            cat.children.sort(key=lambda node: 'zzz' + node.primary_title("en") if isinstance(node, TocCategory) and node.primary_title("en") in REVERSE_ORDER else 'a')
+            cat.children.sort(key=lambda node: REVERSE_ORDER.index(node.primary_title('en')) if isinstance(node, TocCategory) and node.primary_title('en') in REVERSE_ORDER else -1)
+            #old_cat.children.sort(key=lambda node: 'zzz' + node.primary_title("en") if isinstance(node, TocCategory) and node.primary_title("en") in REVERSE_ORDER else 'a')
+
 
     def _make_index_node(self, index, old_title=None):
         d = index.toc_contents(include_first_section=False, include_flags=False)
@@ -530,6 +533,7 @@ ORDER = [
     'Modern Works',
     'Other',
     'Tosafot',
+
 ]
 
 TOP_CATEGORIES = [
@@ -551,6 +555,8 @@ TOP_CATEGORIES = [
 ]
 
 REVERSE_ORDER = [
+    'Maharal',
+    'Rav Kook',
     'Commentary'  # Uch, STILL special casing commentary here... anything to be done??
 ]
 
