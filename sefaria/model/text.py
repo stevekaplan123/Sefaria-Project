@@ -2075,6 +2075,8 @@ class Ref(object):
             new_tref = termdict.get(base[0:l])
 
             if self.index_node:
+                #if self.index_node.has_default_child():
+                #    self.index_node = self.index_node.get_default_child()
                 title = base[0:l]
                 if base[l - 1] == ".":   # Take care of Refs like "Exo.14.15", where the period shouldn't get swallowed in the name.
                     title = base[0:l - 1]
@@ -2090,7 +2092,7 @@ class Ref(object):
         if title:
             assert isinstance(self.index_node, SchemaNode)
             self.index = self.index_node.index
-            self.book = self.index_node.full_title("en")
+            self.book = self.index.title #self.book = self.index_node.full_title("en")
 
             # checkFirst is used on Bavli records to check for a Mishnah pattern match first
             if getattr(self.index_node, "checkFirst", None) and self.index_node.checkFirst.get(self._lang):
@@ -2126,7 +2128,7 @@ class Ref(object):
         if title == base:  # Bare book, like "Genesis" or "Rashi on Genesis".
             if self.index_node.is_default():  # Without any further specification, match the parent of the fall-through node
                 self.index_node = self.index_node.parent
-                self.book = self.index_node.full_title("en")
+                self.book = self.index.title
             return
 
         reg = None
@@ -3053,6 +3055,12 @@ class Ref(object):
         """
         if level == 0:
             return self
+
+        if not self.sections and self.index_node.has_children():
+            if self.index_node.has_default_child():
+                return self.default_child_ref()
+            return self
+
 
         if self._context is None:
             self._context = {}
