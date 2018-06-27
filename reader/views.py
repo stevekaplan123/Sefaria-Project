@@ -1809,6 +1809,13 @@ def visualize_links_through_rashi(request):
     json_file = "../static/files/torah_rashi_torah.json" if level == 1 else "../static/files/tanach_rashi_tanach.json"
     return render(request,'visualize_links_through_rashi.html', {"json_file": json_file})
 
+def talmudic_relationships(request):
+    json_file = "../static/files/talmudic_relationships_data.json"
+    return render(request,'talmudic_relationships.html', {"json_file": json_file})
+
+def sefer_hachinukh_mitzvot(request):
+    csv_file = "../static/files/mitzvot.csv"
+    return render(request,'sefer_hachinukh_mitzvot.html', {"csv": csv_file})
 
 @catch_error_as_json
 def set_lock_api(request, tref, lang, version):

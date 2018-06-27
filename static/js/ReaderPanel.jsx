@@ -557,6 +557,7 @@ class ReaderPanel extends Component {
           key={"sheet-"+this.state.sheet.id}
           highlightedNodes={this.state.highlightedNodes}
           onRefClick={this.handleSheetCitationClick}
+          hasSidebar={this.props.hasSidebar}
           contentLang={this.state.settings.language}
           interfaceLang={this.props.interfaceLang}
           onSegmentClick={this.handleSheetSegmentClick}
@@ -1019,7 +1020,7 @@ class ReaderControls extends Component {
     }
   }
   render() {
-    var title  = this.props.sheet ? this.props.sheet.title.stripHtml() : this.props.currentRef;
+    var title  = this.props.sheet ? this.props.sheet.title.stripHtml().replace(/&amp;/g, '&') : this.props.currentRef;
     var heTitle, categoryAttribution;
 
     if (title) {
