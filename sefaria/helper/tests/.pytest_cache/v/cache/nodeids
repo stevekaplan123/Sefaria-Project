@@ -1,0 +1,16 @@
+[
+  "auto_linking_test.py::Test_AutoLinker::()::test_rebuild_commentary_links", 
+  "auto_linking_test.py::Test_AutoLinker::()::test_rebuild_same_quantity_of_links_for_many_to_one_default_only", 
+  "auto_linking_test.py::Test_AutoLinker::()::test_rebuild_same_link_content_for_many_to_one_default_only", 
+  "auto_linking_test.py::Test_AutoLinker::()::test_rebuild_same_quantity_of_links_for_one_to_one_default_only", 
+  "auto_linking_test.py::Test_AutoLinker::()::test_rebuild_same_link_content_for_one_to_one_default_only", 
+  "auto_linking_test.py::Test_AutoLinker::()::test_rebuild_commentary_links_complex", 
+  "auto_linking_test.py::Test_AutoLinker::()::test_refresh_commentary_links_many_to_one_default_node", 
+  "auto_linking_test.py::Test_AutoLinker::()::test_refresh_commentary_links_one_to_one_default_node", 
+  "auto_linking_test.py::Test_AutoLinker::()::test_refresh_commentary_links", 
+  "auto_linking_test.py::Test_AutoLinker::()::test_refresh_commentary_links_complex", 
+  "auto_linking_test.py::Test_AutoLinker::()::test_refresh_links_with_text_save", 
+  "auto_linking_test.py::Test_AutoLinker::()::test_refresh_links_with_text_save_many_to_one_default_node", 
+  "auto_linking_test.py::Test_AutoLinker::()::test_refresh_links_with_text_save_one_to_one_default_node", 
+  "auto_linking_test.py::Test_AutoLinker::()::test_refresh_links_with_text_save_complex"
+]
